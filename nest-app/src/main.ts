@@ -23,7 +23,18 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api/docs', app, document);
 
-    app.enableCors();
+    app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://*.ngrok.io',
+      'https://*.ngrok-free.app',
+      'http://*.ngrok.io',
+      'http://*.ngrok-free.app',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+
+});
 
     const port = process.env.PORT || 3000;
     await app.listen(port);
